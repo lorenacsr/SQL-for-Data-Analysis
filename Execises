@@ -1,0 +1,78 @@
+1) select 
+    id,
+    country,
+    state
+from e_commerce.customers 
+order by 1;
+
+2) select
+    name,
+    price 
+from e_commerce.products 
+order by price desc;
+3)select 
+    created_at as data_de_criacao
+from e_commerce.customers 
+order by created_at
+limit 5;
+
+4)select 
+    first_name as nome,
+    last_name as sobrenome,
+    email
+from e_commerce.customers 
+where state = 'Piauí'
+order by nome;
+
+5)select
+    sum(total_price) as preco_total,
+    order_id
+from e_commerce.items 
+group by 2
+order by 2;
+
+6)select 
+*
+from e_commerce.orders
+where status = 'cancelado' or status = 'entrega_pendente'
+order by created_at;
+
+select
+*
+from e_commerce.orders
+where status in ('cancelado','entrega_pendente')
+order by created_at;
+
+7)select 
+*
+from e_commerce.customers 
+where additionals is null
+order by id;
+
+8)select 
+    b.status as status,
+    b.id as pedido,
+    c.id as id_item,
+    c.product_id,
+    c.quantity as quantidade,
+    c.total_price as preco_total
+from e_commerce.orders as b
+join e_commerce.items as c on b.id = c.order_id
+order by 2;
+
+9)select 
+    a.id as order_id,
+    a.created_at as order_date,
+    a.customer_id,
+    a.status,
+    b.first_name,
+    b.last_name,
+    b.cell_phone
+from e_commerce.orders as a
+join e_commerce.customers as b on a.customer_id = b.id
+order by 2;
+
+10)select 
+    name 
+from e_commerce.products
+where name like '____';
