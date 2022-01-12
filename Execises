@@ -1,22 +1,31 @@
-1) select 
+--1) Quero como resultado uma tabela que contenha o id, país e estado de todos os nossos clientes.
+--1) I want as a result a table that contains the id, country and state of all our customers.
+select 
     id,
     country,
     state
 from e_commerce.customers 
 order by 1;
 
-2) select
+--2) Selecione os preços distintos de nossos produtos, mas ordenados de forma decrescente, utilizando o DISTINCT e ORDER BY.
+--2) Select different prices of our products, but in descending order, using DISTINCT and ORDER BY.
+select distinct 
     name,
     price 
 from e_commerce.products 
 order by price desc;
-3)select 
+
+--3)Retorne a data (naquele formato ANO-MÊS-DIA) de criação dos primeiros 5 registros da tabela customers.
+--3) Return the date (in that YEAR-MONTH-DAY format) of creation of the first 5 records of the customers table.
+select 
     created_at as data_de_criacao
 from e_commerce.customers 
 order by created_at
 limit 5;
 
-4)select 
+--4)O time de marketing deseja fazer uma campanha em um estado específico. Para isso, eles te pedem os e-mails de todos os clientes que moram no Piauí.
+--4)The marketing team wants to run a campaign in a specific state. For this, they ask you for the e-mails of all customers who live in Piauí.
+select 
     first_name as nome,
     last_name as sobrenome,
     email
@@ -24,32 +33,41 @@ from e_commerce.customers
 where state = 'Piauí'
 order by nome;
 
-5)select
+--5)Vá até a tabela items e retorne o campo ‘total_price’ de forma distinta, mas utilizando o GROUP BY.
+--5) Go to the items table and return the 'total_price' field in a different way, but using the GROUP BY.
+select
     sum(total_price) as preco_total,
     order_id
 from e_commerce.items 
 group by 2
 order by 2;
 
-6)select 
+--6)Selecione todos os pedidos em que o status é cancelado OU entrega_pendente.
+--6)Select all orders where the status is canceled OR pending_delivery.
+select 
 *
 from e_commerce.orders
 where status = 'cancelado' or status = 'entrega_pendente'
 order by created_at;
 
+--Retorne também o mesmo resultado, mas utilizando o operador IN.
 select
 *
 from e_commerce.orders
 where status in ('cancelado','entrega_pendente')
 order by created_at;
 
-7)select 
+--7)Retorne todos os registros em que o campo ‘additionals’ é nulo na tabela customers.
+--7)Return all records where the 'additionals' field is null in the customers table.
+select 
 *
 from e_commerce.customers 
 where additionals is null
 order by id;
 
-8)select 
+--8)Utilize o join para trazer a informação de status do pedido juntamente das informações (colunas) da tabela de itens.
+--8)Use the join to bring the order status information together with the information (columns) of the item table.
+select 
     b.status as status,
     b.id as pedido,
     c.id as id_item,
@@ -60,7 +78,9 @@ from e_commerce.orders as b
 join e_commerce.items as c on b.id = c.order_id
 order by 2;
 
-9)select 
+--9)Na tabela de pedidos, além das colunas existentes, quero também informações de nome do cliente e seu telefone.
+--9) In the order table, in addition to the existing columns, I also want information about the customer's name and phone number.
+select 
     a.id as order_id,
     a.created_at as order_date,
     a.customer_id,
@@ -72,7 +92,9 @@ from e_commerce.orders as a
 join e_commerce.customers as b on a.customer_id = b.id
 order by 2;
 
-10)select 
+--10)DESAFIO: Pesquise sobre o comando like e retorne os nomes dos produtos que tenham somente 4 caracteres.
+--10) CHALLENGE: Search for the like command and return the names of products that have only 4 characters.
+select 
     name 
 from e_commerce.products
 where name like '____';
